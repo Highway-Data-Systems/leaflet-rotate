@@ -560,18 +560,24 @@ L.Map.include({
         if (!this._rotate && mapProto._getPaddedPixelBounds) {
             return mapProto._getPaddedPixelBounds.apply(this, arguments);
         }
-        var p = padding,
-            size = this.getSize(),
-            padMin = size.multiplyBy(-p),
-            padMax = size.multiplyBy(1 + p);
-            //min = this.containerPointToLayerPoint(size.multiplyBy(-p)).round();
-
-        return new L.Bounds([
-            this.containerPointToLayerPoint([padMin.x, padMin.y]).floor(),
-            this.containerPointToLayerPoint([padMin.x, padMax.y]).floor(),
-            this.containerPointToLayerPoint([padMax.x, padMin.y]).floor(),
-            this.containerPointToLayerPoint([padMax.x, padMax.y]).floor()
-        ]);
+        
+        // Calculate the diagonal length of the map view
+        var size = this.getSize();
+        var diagonal = Math.sqrt(size.x * size.x + size.y * size.y);
+        
+        // Apply padding to the diagonal (optional, but recommended for safety)
+        var p = padding || 0;
+        var side = diagonal * (1 + p * 2); // *2 because padding is usually applied to both sides
+        
+        // Get the center of the map in layer coordinates
+        var center = this.latLngToLayerPoint(this.getCenter());
+        
+        // Create a square bounds centered on the map center
+        var halfSide = side / 2;
+        return new L.Bounds(
+            center.subtract([halfSide, halfSide]).floor(),
+            center.add([halfSide, halfSide]).floor()
+        );
     },
 
     _handleGeolocationResponse: function(pos) {
