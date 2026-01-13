@@ -1,0 +1,17 @@
+{
+    "$schema": "https://json.schemastore.org/prettierrc",
+    "semi": false,
+    "tabWidth": 2,
+    "singleQuote": true,
+    "quoteProps": "as-needed",
+    "printWidth": 100,
+    "trailingComma": "es5",
+    "jsxBracketSameLine": false,
+    "bracketSameLine": false,
+    "jsxSingleQuote": true,
+    "endOfLine": "lf",
+    "useTabs": false,
+    "bracketSpacing": true,
+    "arrowParens": "always",
+    "proseWrap": "preserve"
+  }
