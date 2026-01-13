@@ -11,7 +11,7 @@
 L.Control.Rotate = L.Control.extend({
   options: {
     position: 'topleft',
-    closeOnZeroBearing: true,
+    closeOnZeroBearing: false,
   },
 
   onAdd: function (map) {
@@ -108,24 +108,24 @@ L.Control.Rotate = L.Control.extend({
     var map = this._map
 
     // Touch mode
-    if (!map.touchRotate.enabled() && !map.compassBearing.enabled()) {
-      map.touchRotate.enable()
-    }
+    // if (!map.touchRotate.enabled()) {
+    //   map.fire('unlock-rotate')
+    //   map.touchRotate.enable()
+    // }
 
     // Compass mode
-    else if (!map.compassBearing.enabled()) {
+    if (!map.compassBearing.enabled()) {
+      map.fire('rotate-compass')
       map.touchRotate.disable()
-      ;(DeviceOrientationEvent && DeviceOrientationEvent.requestPermission
-        ? DeviceOrientationEvent.requestPermission() // iOS compass
-        : Promise.resolve('granted')
-      ) // others
-        .then((state) => 'granted' === state && map.compassBearing.enable())
+      map.compassBearing.enable()
     }
 
     // Locked mode
     else {
       map.compassBearing.disable()
+      map.touchRotate.disable()
       map.setBearing(0)
+      map.fire('lock-rotate')
       if (this.options.closeOnZeroBearing) {
         map.touchRotate.enable()
       }
@@ -152,9 +152,9 @@ L.Control.Rotate = L.Control.extend({
       }
 
       // Touch mode
-      else if (map.touchRotate.enabled()) {
-        this._link.style.backgroundColor = null
-      }
+      //   else if (map.touchRotate.enabled()) {
+      //     this._link.style.backgroundColor = null
+      //   }
 
       // Locked mode
       else {
