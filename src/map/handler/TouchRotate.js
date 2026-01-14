@@ -18,8 +18,8 @@ L.Map.mergeOptions({
 L.Map.TouchRotate = L.Handler.extend({
 
     addHooks: function() {
-        // this._map.touchGestures.enable();
-        // this._map.touchGestures.rotate = true;
+        this._map.touchGestures.enable();
+        this._map.touchGestures.rotate = true;
     },
 
     removeHooks: function() {

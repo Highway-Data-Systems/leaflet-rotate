@@ -108,12 +108,14 @@ L.Control.Rotate = L.Control.extend({
     var map = this._map
 
     // Touch mode
-    // if (!map.touchRotate.enabled()) {
-    //   map.fire('unlock-rotate')
-    //   map.touchRotate.enable()
-    // }
+    if (!map.touchRotate.enabled()) {
+      map.fire('unlock-rotate')
+      map.compassBearing.disable()
+      map.touchRotate.enable()
+    }
 
     // Compass mode
+    // Locked mode in hds app
     if (!map.compassBearing.enabled()) {
       map.fire('rotate-compass')
       map.touchRotate.disable()
@@ -121,15 +123,15 @@ L.Control.Rotate = L.Control.extend({
     }
 
     // Locked mode
-    else {
-      map.compassBearing.disable()
-      map.touchRotate.disable()
-      map.setBearing(0)
-      map.fire('lock-rotate')
-      if (this.options.closeOnZeroBearing) {
-        map.touchRotate.enable()
-      }
-    }
+    // else {
+    //   map.compassBearing.disable()
+    //   map.touchRotate.disable()
+    //   map.setBearing(0)
+    //   map.fire('lock-rotate')
+    //   if (this.options.closeOnZeroBearing) {
+    //     map.touchRotate.enable()
+    //   }
+    // }
     this._restyle()
   },
 
@@ -147,22 +149,23 @@ L.Control.Rotate = L.Control.extend({
       }
 
       // Compass mode
+      // Locked mode in hds app
       if (map.compassBearing.enabled()) {
         this._link.style.backgroundColor = 'orange'
       }
 
       // Touch mode
-      //   else if (map.touchRotate.enabled()) {
-      //     this._link.style.backgroundColor = null
-      //   }
+      else if (map.touchRotate.enabled()) {
+        this._link.style.backgroundColor = null
+      }
 
       // Locked mode
-      else {
-        this._link.style.backgroundColor = 'grey'
-        if (0 === bearing && this.options.closeOnZeroBearing) {
-          this._container.style.display = 'none'
-        }
-      }
+      // else {
+      //   this._link.style.backgroundColor = 'grey'
+      //   if (0 === bearing && this.options.closeOnZeroBearing) {
+      //     this._container.style.display = 'none'
+      //   }
+      // }
     }
   },
 })
