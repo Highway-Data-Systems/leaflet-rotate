@@ -116,7 +116,7 @@ L.Control.Rotate = L.Control.extend({
 
     // Compass mode
     // Locked mode in hds app
-    if (!map.compassBearing.enabled()) {
+    else if (!map.compassBearing.enabled()) {
       map.fire('rotate-compass')
       map.touchRotate.disable()
       map.compassBearing.enable()
