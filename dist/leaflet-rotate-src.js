@@ -1883,7 +1883,7 @@
 
         // Compass mode
         // Locked mode in hds app
-        if (!map.compassBearing.enabled()) {
+        else if (!map.compassBearing.enabled()) {
           map.fire('rotate-compass');
           map.touchRotate.disable();
           map.compassBearing.enable();
@@ -1916,6 +1916,7 @@
           }
 
           // Compass mode
+          // Locked mode in hds app
           if (map.compassBearing.enabled()) {
             this._link.style.backgroundColor = 'orange';
           }
