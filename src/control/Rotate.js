@@ -110,6 +110,7 @@ L.Control.Rotate = L.Control.extend({
     // Touch mode
     if (!map.touchRotate.enabled()) {
       map.fire('unlock-rotate')
+      map.setBearing(0)
       map.compassBearing.disable()
       map.touchRotate.enable()
     }
