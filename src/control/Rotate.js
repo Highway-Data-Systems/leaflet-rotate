@@ -39,7 +39,7 @@ L.Control.Rotate = L.Control.extend({
     link.title = 'Rotate map'
 
     L.DomEvent.on(link, 'dblclick', L.DomEvent.stopPropagation)
-      .on(link, 'mousedown', this._handleMouseDown, this)
+      // .on(link, 'mousedown', this._handleMouseDown, this)
       .on(link, 'click', L.DomEvent.stop)
       .on(link, 'click', this._cycleState, this)
       .on(link, 'click', this._refocusOnMap, this)
